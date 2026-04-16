@@ -1,0 +1,117 @@
+.fondo {
+    background: rgba(0, 0, 30, 0.85);
+    backdrop-filter: blur(6px);
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+}
+
+/* Modal */
+dialog {
+    width: 90%;
+    max-width: 30rem;
+    background: linear-gradient(135deg, #0a0f2c, #0d1b4c);
+    border-radius: 12px;
+    border: 1px solid rgba(0, 123, 255, 0.2);
+    box-shadow: 0 0 20px rgba(0, 123, 255, 0.3);
+    overflow: hidden;
+    padding: 1.5rem;
+    top: 5rem;
+    color: #ffffff;
+    animation: aparecer 0.4s ease;
+}
+
+/* Animación entrada */
+@keyframes aparecer {
+    from {
+        opacity: 0;
+        transform: translateY(-20px) scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+h2 {
+    margin: 0 0 1rem;
+    color: #66ccff;
+}
+
+/* Labels */
+label {
+    display: block;
+    font-weight: bold;
+    font-size: 0.85rem;
+    color: #99ccff;
+    margin-bottom: 4px;
+}
+
+/* Inputs */
+input,
+textarea {
+    width: 100%;
+    font: inherit;
+    padding: 0.4rem 0.5rem;
+    border-radius: 6px;
+    border: 1px solid #1e3a8a;
+    background-color: #0f172a;
+    color: #ffffff;
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+/* Efecto focus */
+input:focus,
+textarea:focus {
+    border-color: #00c6ff;
+    box-shadow: 0 0 8px rgba(0, 198, 255, 0.6);
+}
+
+/* Botones */
+.acciones {
+    margin: 1.2rem 0 0;
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.5rem;
+}
+
+button {
+    font: inherit;
+    cursor: pointer;
+    border: none;
+    padding: 0.4rem 1.3rem;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+}
+
+/* Botón cancelar */
+button[type="button"] {
+    color: #aaaaaa;
+}
+
+button[type="button"]:hover {
+    color: #ffffff;
+}
+
+/* Botón principal */
+button[type="submit"] {
+    background: linear-gradient(135deg, #005bea, #00c6ff);
+    color: #ffffff;
+    box-shadow: 0 0 10px rgba(0, 198, 255, 0.5);
+}
+
+/* Hover pro */
+button[type="submit"]:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 20px rgba(0, 198, 255, 0.8);
+}
+
+/* Responsive */
+@media (min-width: 768px) {
+    dialog {
+        padding: 2rem;
+    }
+}

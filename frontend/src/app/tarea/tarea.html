@@ -1,0 +1,20 @@
+<app-tarjeta>
+  <article [class.completed]="tarea.completada == 1" class="task-card">
+    <div class="task-content">
+      <h2>{{ tarea.titulo }}</h2>
+      <time *ngIf="tarea.expira">{{ tarea.expira | date: 'fullDate' }}</time>
+      <p>{{ tarea.resumen }}</p>
+    </div>
+    
+    <!-- Sólo mostramos acciones si el usuario es Admin -->
+    <div class="acciones" *ngIf="authService.isAdmin()">
+      <button class="btn-edit" (click)="alEditarTarea()">✏️ Editar</button>
+      @if (tarea.completada != 1) {
+        <button class="btn-complete" (click)="alCompletarTarea()">✅ Completar</button>
+      } @else {
+        <span class="status-done">¡Hecha! ✅</span>
+      }
+      <button class="btn-delete" (click)="alEliminarTarea()">🗑️ Eliminar</button>
+    </div>
+  </article>
+</app-tarjeta>

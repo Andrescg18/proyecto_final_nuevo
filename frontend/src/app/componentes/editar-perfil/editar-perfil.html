@@ -1,0 +1,38 @@
+<div class="modal-overlay" (click)="onClose()">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <button class="close-btn" (click)="onClose()">&times;</button>
+    
+    <h2>Editar Perfil Administrador</h2>
+    
+    <div *ngIf="error" class="error-msg">{{ error }}</div>
+    <div *ngIf="success" style="color: #10b981; font-size: 0.9rem; margin-bottom: 1rem; text-align: center;">{{ success }}</div>
+
+    <form (ngSubmit)="onUpdate()">
+      <div class="form-group">
+        <label for="newUsername">Nuevo Usuario (opcional)</label>
+        <input 
+          type="text" 
+          id="newUsername" 
+          name="newUsername" 
+          [(ngModel)]="newUsername"
+          placeholder="Dejar en blanco para omitir"
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="newPassword">Nueva Contraseña (opcional)</label>
+        <input 
+          type="password" 
+          id="newPassword" 
+          name="newPassword" 
+          [(ngModel)]="newPassword"
+          placeholder="Dejar en blanco para omitir"
+        />
+      </div>
+
+      <button type="submit" class="submit-btn" [disabled]="loading">
+        {{ loading ? 'Actualizando...' : 'Guardar Cambios' }}
+      </button>
+    </form>
+  </div>
+</div>

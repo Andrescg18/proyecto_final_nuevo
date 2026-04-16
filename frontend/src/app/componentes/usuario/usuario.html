@@ -1,0 +1,28 @@
+<app-tarjeta>
+  <button [class.active]="seleccionado" (click)="alSeleccionarUsuario()" style="position: relative; width: 100%;">
+    <img [src]="usuario.avatar" [alt]="usuario.nombre" />
+    <span>{{ usuario.nombre }}</span>
+    <div 
+      *ngIf="authService.isAdmin()" 
+      class="admin-user-actions"
+      style="position: absolute; right: 10px; top: 12px; display: flex; gap: 4px; pointer-events: auto;"
+    >
+      <div 
+        class="edit-btn" 
+        (click)="alEditarUsuario($event)"
+        style="background: rgba(59, 130, 246, 0.9); border-radius: 50%; padding: 5px; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; transition: transform 0.2s;"
+        title="Editar nombre"
+      >
+        ✏️
+      </div>
+      <div 
+        class="delete-btn" 
+        (click)="alEliminarUsuario($event)"
+        style="background: rgba(239, 68, 68, 0.9); border-radius: 50%; padding: 5px; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; transition: transform 0.2s;"
+        title="Borrar persona"
+      >
+        🗑️
+      </div>
+    </div>
+  </button>
+</app-tarjeta>

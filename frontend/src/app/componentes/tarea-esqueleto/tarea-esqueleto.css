@@ -1,0 +1,54 @@
+.skeleton-card {
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 16px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+  border: 1px solid #eef2f6;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* Para el dark mode si el background cambia, pero lo manejamos con vars después, o lo dejamos sutil */
+@media (prefers-color-scheme: dark) {
+  .skeleton-card {
+    background: #27272a;
+    border-color: #3f3f46;
+  }
+}
+
+.skeleton-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Animación pulsante */
+@keyframes pulse {
+  0% { opacity: 1; }
+  50% { opacity: 0.4; }
+  100% { opacity: 1; }
+}
+
+.skeleton-title, .skeleton-badge, .skeleton-line, .skeleton-date {
+  background: #e2e8f0;
+  border-radius: 6px;
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@media (prefers-color-scheme: dark) {
+  .skeleton-title, .skeleton-badge, .skeleton-line, .skeleton-date {
+    background: #3f3f46;
+  }
+}
+
+.skeleton-title { width: 40%; height: 20px; }
+.skeleton-badge { width: 24px; height: 24px; border-radius: 50%; }
+
+.skeleton-content { display: flex; flex-direction: column; gap: 8px; }
+.skeleton-line.full { width: 100%; height: 14px; }
+.skeleton-line.medium { width: 70%; height: 14px; }
+
+.skeleton-footer { display: flex; justify-content: flex-end; margin-top: 8px; }
+.skeleton-date { width: 30%; height: 12px; }

@@ -1,0 +1,32 @@
+@if (estaAgregandoTareaNueva) {
+  <app-nueva-tarea [idUsuario]="idUsuario" (cerrar)="alCerrarTareaNueva()" />
+}
+
+@if (tareaEnEdicion) {
+  <app-editar-tarea [tarea]="tareaEnEdicion" (cerrar)="alCerrarEditarTarea()" />
+}
+
+<section id="tareas">
+  <header>
+    <h2>Tareas de {{ nombre }}</h2>
+    <menu *ngIf="authService.isAdmin()">
+      <button class="btn-primary" (click)="alIniciarNuevaTarea()">✨ Agregar Tarea Nueva</button>
+    </menu>
+  </header>
+
+  <ul>
+    @for (tarea of tareasUsuarioSeleccionado; track tarea.id) {
+      <li>
+        <app-tarea 
+          [tarea]="tarea" 
+          (editar)="alIniciarEditarTarea($event)"
+          (completar)="cargarTareas()" 
+          (eliminar)="cargarTareas()" />
+      </li>
+    }
+    
+    <li *ngIf="tareasUsuarioSeleccionado.length === 0" class="empty-tasks">
+      <p>No hay tareas pendientes en este momento. ¡Todo al día!</p>
+    </li>
+  </ul>
+</section>

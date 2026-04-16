@@ -1,0 +1,24 @@
+<header>
+    <div class="logo-container" (click)="onLogoClick()" style="cursor: pointer; display: flex; align-items: center; gap: 15px;">
+        <img src="https://cdn.displate.com/artwork/857x1200/2019-09-04/e2c6eef7d2d046caa248317b057c01d7_3396105aaa46a7ca8e23901ae11dc3b7.jpg" alt="Logo de Cohete Estelar" style="width: 4rem; height: 4rem; filter: drop-shadow(0px 0px 8px rgba(255, 255, 255, 0.6)); border-radius: 50%;">
+        <div>
+            <h1>MIS TAREITAS</h1>
+            <p>Misionando tareas a lo loco</p>
+        </div>
+    </div>
+    <div class="header-actions">
+        <button *ngIf="!authService.isAdmin()" (click)="onLoginClick()" class="btn-action admin">🔑 Login Admin</button>
+        
+        <ng-container *ngIf="authService.isAdmin()">
+            <button (click)="showCrearAdminModal = true" class="btn-action admin">➕ Crear Admin</button>
+            <button (click)="showGestionarAdminsModal = true" class="btn-action admin">👥 Gestionar Admins</button>
+            <button (click)="showEditarPerfilModal = true" class="btn-action admin">⚙️ Editar Perfil</button>
+            <button (click)="onLogoutClick()" class="btn-action logout">Cerrar Sesión</button>
+        </ng-container>
+    </div>
+
+    <!-- Modals administrative -->
+    <app-crear-admin *ngIf="showCrearAdminModal" (close)="showCrearAdminModal = false"></app-crear-admin>
+    <app-editar-perfil *ngIf="showEditarPerfilModal" (close)="showEditarPerfilModal = false"></app-editar-perfil>
+    <app-gestionar-admins *ngIf="showGestionarAdminsModal" (close)="showGestionarAdminsModal = false"></app-gestionar-admins>
+</header>
