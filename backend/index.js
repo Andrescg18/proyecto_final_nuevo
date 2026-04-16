@@ -365,7 +365,7 @@ app.get('/api/usuarios/catalogo', (req, res) => {
         const files = fs.readdirSync(avatarsDir);
         const localAvatars = files
             .filter(file => /\.(png|jpg|jpeg|svg|webp)$/i.test(file))
-            .map(file => baseUrl + file);
+            .map(file => baseUrl + encodeURIComponent(file));
 
         // Si no hay archivos locales, enviamos el catálogo de respaldo
         if (localAvatars.length === 0) {
