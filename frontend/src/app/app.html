@@ -1,4 +1,8 @@
-<app-encabezado (logoClick)="limpiarSeleccion()" (openLogin)="showLoginModal.set(true)"></app-encabezado>
+<app-encabezado 
+  (logoClick)="limpiarSeleccion()" 
+  (openLogin)="showLoginModal.set(true)"
+  (openCrearPersona)="abrirGestion('crear')"
+></app-encabezado>
 
 <main style="transition: all 0.4s ease; backdrop-filter: blur(5px);">
   <ul id="usuarios">
@@ -8,17 +12,12 @@
           [seleccionado]="usuario.id === idUsuarioSeleccionado()"
           [usuario]="usuario"
           (seleccion)="alSeleccionarUsuario($event)"
-          (usuarioEditado)="cargarUsuarios()"
+          (editar)="abrirGestion('editar', $event)"
+          (eliminar)="abrirGestion('borrar', $event)"
         />
       </li>
     }
   </ul>
-
-  <div *ngIf="authService.isAdmin()" style="text-align: center; margin-top: 1.5rem; width: 330px; animation: fadeIn 0.8s ease;">
-    <button (click)="abrirCrearUsuario()" class="btn-premium">
-      ➕ Crear Persona
-    </button>
-  </div>
 
   @if (usuarioSeleccionado()) {
     <app-tareas [idUsuario]="usuarioSeleccionado()!.id" [nombre]="usuarioSeleccionado()!.nombre" />
@@ -31,18 +30,13 @@
   }
 </main>
 
-<!-- Modal Selección Avatar (RF-05) -->
-<div class="modal-overlay-premium" *ngIf="showAvatarModal()" (click)="showAvatarModal.set(false)">
-  <div class="modal-content-premium" (click)="$event.stopPropagation()">
-    <h2>Selecciona un Avatar</h2>
-    <p>Elige la imagen de perfil para <strong>{{ nuevoNombreTmp }}</strong></p>
-    <div class="avatar-grid">
-      <div *ngFor="let url of catalogo()" class="avatar-item" (click)="seleccionarAvatarYCrear(url)">
-        <img [src]="url" alt="Avatar">
-      </div>
-    </div>
-    <button class="btn-cancel" (click)="showAvatarModal.set(false)">Cancelar</button>
-  </div>
-</div>
+<!-- Modal de Gestión Unificado (RF-02, RF-05) -->
+<app-gestion-persona 
+  *ngIf="showGestionModal()"
+  [modo]="modoGestion()"
+  [usuario]="usuarioParaGestion()"
+  (cerrar)="showGestionModal.set(false)"
+  (completado)="cargarUsuarios()"
+></app-gestion-persona>
 
 <app-login *ngIf="showLoginModal()" (close)="showLoginModal.set(false)"></app-login>

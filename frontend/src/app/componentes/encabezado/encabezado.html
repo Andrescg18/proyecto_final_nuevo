@@ -10,6 +10,7 @@
         <button *ngIf="!authService.isAdmin()" (click)="onLoginClick()" class="btn-action admin">🔑 Login Admin</button>
         
         <ng-container *ngIf="authService.isAdmin()">
+            <button (click)="openCrearPersona.emit()" class="btn-action admin">➕ Crear Persona</button>
             <button (click)="showCrearAdminModal = true" class="btn-action admin">➕ Crear Admin</button>
             <button (click)="showGestionarAdminsModal = true" class="btn-action admin">👥 Gestionar Admins</button>
             <button (click)="showEditarPerfilModal = true" class="btn-action admin">⚙️ Editar Perfil</button>

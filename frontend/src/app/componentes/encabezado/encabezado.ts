@@ -15,6 +15,7 @@ import { GestionarAdminsComponent } from '../gestionar-admins/gestionar-admins';
 export class Encabezado {
   @Output() logoClick = new EventEmitter<void>();
   @Output() openLogin = new EventEmitter<void>();
+  @Output() openCrearPersona = new EventEmitter<void>();
 
   authService = inject(AuthService);
   

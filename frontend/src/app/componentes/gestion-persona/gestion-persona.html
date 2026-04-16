@@ -1,0 +1,65 @@
+<div class="modal-overlay" (click)="cancelar()">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    
+    <header>
+      <h2>
+        <span *ngIf="modo === 'crear'">➕ Nueva Persona</span>
+        <span *ngIf="modo === 'editar'">✏️ Editar Perfil</span>
+        <span *ngIf="modo === 'borrar'">🗑️ Eliminar Persona</span>
+      </h2>
+      <button class="close-x" (click)="cancelar()">×</button>
+    </header>
+
+    <!-- FORMULARIO CREAR/EDITAR -->
+    <div class="body" *ngIf="modo !== 'borrar'">
+      <div class="form-group">
+        <label>Nombre de la Persona</label>
+        <input 
+          type="text" 
+          [(ngModel)]="nombre" 
+          placeholder="Ej: David Beckham"
+          [disabled]="cargando()"
+        >
+      </div>
+
+      <div class="form-group">
+        <label>Elige un Avatar</label>
+        <div class="avatar-grid">
+          <div 
+            *ngFor="let url of catalogo()" 
+            class="avatar-card" 
+            [class.selected]="avatarSeleccionado() === url"
+            (click)="seleccionarAvatar(url)"
+          >
+            <img [src]="url" alt="Avatar">
+            <div class="check" *ngIf="avatarSeleccionado() === url">✓</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CONFIRMACIÓN BORRAR -->
+    <div class="body delete-view" *ngIf="modo === 'borrar'">
+      <div class="warning-icon">⚠️</div>
+      <p>¿Estás seguro de que quieres eliminar a <strong>{{ usuario?.nombre }}</strong>?</p>
+      <p class="subtitle">Esta acción borrará también todas sus tareas y no se puede deshacer.</p>
+    </div>
+
+    <footer>
+      <button class="btn-cancel" (click)="cancelar()" [disabled]="cargando()">Cancelar</button>
+      
+      <button 
+        class="btn-save" 
+        [class.btn-delete]="modo === 'borrar'"
+        (click)="guardar()" 
+        [disabled]="cargando() || (modo !== 'borrar' && !nombre())"
+      >
+        <span *ngIf="!cargando()">
+          {{ modo === 'crear' ? 'Crear' : modo === 'editar' ? 'Guardar Cambios' : 'Sí, Eliminar' }}
+        </span>
+        <span *ngIf="cargando()">Procesando...</span>
+      </button>
+    </footer>
+
+  </div>
+</div>

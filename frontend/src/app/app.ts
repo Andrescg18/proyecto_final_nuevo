@@ -4,13 +4,14 @@ import { Encabezado } from "./componentes/encabezado/encabezado";
 import { Usuario } from './componentes/usuario/usuario';
 import { Tareas } from './componentes/tareas/tareas';
 import { LoginComponent } from './componentes/login/login';
+import { GestionPersonaComponent, ModoGestion } from './componentes/gestion-persona/gestion-persona';
 import { AuthService } from './servicios/auth.service';
 import { UsuariosService, Usuario as UsuarioInterface } from './servicios/usuarios.service';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, Encabezado, Usuario, Tareas, LoginComponent],
+  imports: [CommonModule, Encabezado, Usuario, Tareas, LoginComponent, GestionPersonaComponent],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
@@ -23,12 +24,10 @@ export class App implements OnInit {
   
   // -- Modales y Catálogo (RF-05, RNF-02) --
   showLoginModal = signal(false);
-  showAvatarModal = signal(false);
-  catalogo = signal<string[]>([]);
+  showGestionModal = signal(false);
+  modoGestion = signal<ModoGestion>('crear');
+  usuarioParaGestion = signal<UsuarioInterface | undefined>(undefined);
   
-  // Estado temporal para creación
-  nuevoNombreTmp = '';
-
   authService = inject(AuthService);
   usuariosService = inject(UsuariosService);
 
@@ -38,32 +37,25 @@ export class App implements OnInit {
 
   ngOnInit() {
     this.cargarUsuarios();
-    this.usuariosService.obtenerCatalogo().subscribe(res => this.catalogo.set(res));
   }
 
   cargarUsuarios() {
     this.usuariosService.obtenerUsuarios().subscribe({
-      next: (res) => this.usuarios.set(res),
+      next: (res) => {
+        this.usuarios.set(res);
+        // Si el usuario seleccionado ya no existe (fue borrado), limpiamos
+        if (this.idUsuarioSeleccionado() && !res.find(u => u.id === this.idUsuarioSeleccionado())) {
+          this.idUsuarioSeleccionado.set(undefined);
+        }
+      },
       error: (err) => console.error('Error al cargar usuarios:', err)
     });
   }
 
-  abrirCrearUsuario() {
-    const nombre = prompt('¿Cómo se llama la nueva persona?');
-    if (!nombre) return;
-    this.nuevoNombreTmp = nombre;
-    this.showAvatarModal.set(true);
-  }
-
-  seleccionarAvatarYCrear(url: string) {
-    this.usuariosService.crearUsuario(this.nuevoNombreTmp, url).subscribe({
-      next: () => {
-        this.showAvatarModal.set(false);
-        this.cargarUsuarios();
-        this.nuevoNombreTmp = '';
-      },
-      error: (err) => alert(err.error?.mensaje || 'Error al crear')
-    });
+  abrirGestion(modo: ModoGestion, usuario?: UsuarioInterface) {
+    this.modoGestion.set(modo);
+    this.usuarioParaGestion.set(usuario);
+    this.showGestionModal.set(true);
   }
 
   alSeleccionarUsuario(id: string) {
