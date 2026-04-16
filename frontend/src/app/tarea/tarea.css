@@ -1,15 +1,30 @@
 article {
-    padding: 1rem;
-    color: #000000;
-    background-color: #ffffff;
+    padding: 1.5rem;
+    color: var(--text-white);
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+article:hover {
+    border-color: rgba(59, 130, 246, 0.4);
+    background: rgba(255, 255, 255, 0.05);
+    transform: translateX(5px);
+    box-shadow: -5px 0 20px rgba(59, 130, 246, 0.1);
 }
 
 h2 {
-    margin: 0;
+    margin: 0 0 0.5rem 0;
+    font-size: 1.25rem;
+    color: #f8fafc;
 }
 
 time {
-    color: #000000;
+    color: #94a3b8;
+    font-size: 0.85rem;
+    display: block;
+    margin-bottom: 1.25rem;
 }
 
 .acciones {
@@ -18,20 +33,21 @@ time {
 }
 
 .acciones button {
-    font: inherit;
-    font-size: 0.9rem;
+    font-family: inherit;
+    font-size: 0.85rem;
+    font-weight: 600;
     cursor: pointer;
-    background-color: #fffefe;
-    color: #050475;
-    border-radius: 4px;
-    padding: 0.5rem 1.5rem;
-    border: none;
-    box-shadow: 0 1px 3px rgba(210, 60, 60, 0.3);
+    background: rgba(34, 197, 94, 0.1);
+    color: #4ade80;
+    border-radius: 8px;
+    padding: 0.6rem 1.25rem;
+    border: 1px solid rgba(34, 197, 94, 0.2);
     transition: all 0.3s ease;
 }
 
-.acciones button:hover,
-.acciones button:active {
-    background-color: #000000;
-    box-shadow: 0 1px 6px rgba(0, 0, 0, 0.3);
+.acciones button:hover {
+    background: #22c55e;
+    color: white;
+    box-shadow: 0 0 15px rgba(34, 197, 94, 0.4);
+    transform: translateY(-2px);
 }

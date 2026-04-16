@@ -1,6 +1,6 @@
 .fondo {
-    background: rgba(0, 0, 30, 0.85);
-    backdrop-filter: blur(6px);
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(12px);
     position: fixed;
     top: 0;
     left: 0;
@@ -8,110 +8,101 @@
     height: 100vh;
 }
 
-/* Modal */
+/* Modal Premium */
 dialog {
     width: 90%;
-    max-width: 30rem;
-    background: linear-gradient(135deg, #0a0f2c, #0d1b4c);
-    border-radius: 12px;
-    border: 1px solid rgba(0, 123, 255, 0.2);
-    box-shadow: 0 0 20px rgba(0, 123, 255, 0.3);
+    max-width: 32rem;
+    background: linear-gradient(135deg, #0f172a, #05070a);
+    border-radius: 24px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.6);
     overflow: hidden;
-    padding: 1.5rem;
+    padding: 2.5rem;
     top: 5rem;
-    color: #ffffff;
-    animation: aparecer 0.4s ease;
+    color: var(--text-white);
+    animation: spatialIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
-/* Animación entrada */
-@keyframes aparecer {
-    from {
-        opacity: 0;
-        transform: translateY(-20px) scale(0.95);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0) scale(1);
-    }
+@keyframes spatialIn {
+    from { opacity: 0; transform: translateY(-30px) scale(0.9); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
 }
 
 h2 {
-    margin: 0 0 1rem;
-    color: #66ccff;
+    margin: 0 0 2rem;
+    font-size: 1.75rem;
+    font-weight: 800;
+    background: linear-gradient(to right, #3b82f6, #00d2ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
-/* Labels */
 label {
     display: block;
-    font-weight: bold;
-    font-size: 0.85rem;
-    color: #99ccff;
-    margin-bottom: 4px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: #94a3b8;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
 }
 
-/* Inputs */
 input,
 textarea {
     width: 100%;
-    font: inherit;
-    padding: 0.4rem 0.5rem;
-    border-radius: 6px;
-    border: 1px solid #1e3a8a;
-    background-color: #0f172a;
-    color: #ffffff;
+    font-family: inherit;
+    padding: 0.8rem 1rem;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background-color: rgba(0, 0, 0, 0.3);
+    color: #f8fafc;
     outline: none;
     transition: all 0.3s ease;
+    margin-bottom: 1.5rem;
 }
 
-/* Efecto focus */
 input:focus,
 textarea:focus {
-    border-color: #00c6ff;
-    box-shadow: 0 0 8px rgba(0, 198, 255, 0.6);
+    border-color: #3b82f6;
+    background-color: rgba(59, 130, 246, 0.05);
+    box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.15);
 }
 
-/* Botones */
 .acciones {
-    margin: 1.2rem 0 0;
+    margin-top: 1rem;
     display: flex;
     justify-content: flex-end;
-    gap: 0.5rem;
+    gap: 1rem;
 }
 
 button {
-    font: inherit;
+    font-family: inherit;
+    font-weight: 600;
     cursor: pointer;
     border: none;
-    padding: 0.4rem 1.3rem;
-    border-radius: 6px;
+    padding: 0.8rem 2rem;
+    border-radius: 12px;
     transition: all 0.3s ease;
 }
 
-/* Botón cancelar */
 button[type="button"] {
-    color: #aaaaaa;
+    background: transparent;
+    color: #94a3b8;
 }
 
 button[type="button"]:hover {
-    color: #ffffff;
+    color: #f8fafc;
+    background: rgba(255, 255, 255, 0.05);
 }
 
-/* Botón principal */
 button[type="submit"] {
-    background: linear-gradient(135deg, #005bea, #00c6ff);
+    background: linear-gradient(135deg, #3b82f6, #2563eb);
     color: #ffffff;
-    box-shadow: 0 0 10px rgba(0, 198, 255, 0.5);
+    box-shadow: 0 10px 20px rgba(59, 130, 246, 0.2);
 }
 
-/* Hover pro */
 button[type="submit"]:hover {
-    transform: scale(1.05);
-    box-shadow: 0 0 20px rgba(0, 198, 255, 0.8);
-}
-
-/* Responsive */
-@media (min-width: 768px) {
-    dialog {
-        padding: 2rem;
-    }
+    transform: translateY(-2px);
+    box-shadow: 0 15px 30px rgba(59, 130, 246, 0.4);
+    filter: brightness(1.1);
 }
