@@ -1,4 +1,4 @@
-import { Component, signal, inject, OnInit, computed } from '@angular/core';
+import { Component, signal, inject, OnInit, computed, effect } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Encabezado } from "./componentes/encabezado/encabezado";
 import { Usuario } from './componentes/usuario/usuario';
@@ -35,6 +35,17 @@ export class App implements OnInit {
     this.usuarios().find((u) => u.id === this.idUsuarioSeleccionado())
   );
 
+  constructor() {
+    // Escucha cambios en la sesión para detectar expiración (RNF-04)
+    effect(() => {
+      if (!this.authService.isAdmin() && this.showGestionModal()) {
+        this.showGestionModal.set(false); // Cerramos el modal de gestión roto
+        this.showLoginModal.set(true); // Pedimos login
+        console.warn('Sesión expirada detectada. Redirigiendo a login...');
+      }
+    });
+  }
+
   ngOnInit() {
     this.cargarUsuarios();
   }
@@ -53,6 +64,10 @@ export class App implements OnInit {
   }
 
   abrirGestion(modo: ModoGestion, usuario?: UsuarioInterface) {
+    if (!this.authService.isAdmin()) {
+      this.showLoginModal.set(true);
+      return;
+    }
     this.modoGestion.set(modo);
     this.usuarioParaGestion.set(usuario);
     this.showGestionModal.set(true);
