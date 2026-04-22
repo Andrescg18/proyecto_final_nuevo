@@ -50,7 +50,10 @@ export class Tareas implements OnChanges {
 
   alCerrarTareaNueva() {
     this.estaAgregandoTareaNueva = false;
-    this.cargarTareas();
+    // Agregamos un pequeo retardo para asegurar que la DB haya procesado el insert
+    setTimeout(() => {
+      this.cargarTareas();
+    }, 500);
   }
 
   alIniciarEditarTarea(tarea: any) {

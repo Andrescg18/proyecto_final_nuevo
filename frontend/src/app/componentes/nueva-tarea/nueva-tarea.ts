@@ -24,19 +24,24 @@ export class NuevaTarea {
   }
 
   alEnviar() {
+    console.log('[NUEVA TAREA] Intentando crear para usuario:', this.idUsuario);
+    
     const nuevaTarea = {
       titulo: this.tituloIngresado, 
       resumen: this.resumenIngresado,
-      fecha: this.fechaIngresado, // backend index.js is looking for const { ..., fecha, ... } = req.body
+      fecha: this.fechaIngresado, 
       idUsuario: this.idUsuario
     };
 
     this.tareasService.crearTarea(nuevaTarea as any).subscribe({
       next: (respuesta) => {
+        console.log('[NUEVA TAREA] Respuesta del servidor:', respuesta);
+        alert('✅ ¡Tarea guardada con éxito!');
         this.cerrar.emit();
       },
       error: (error) => {
-        console.error('Hubo un error al guardar la tarea:', error);
+        console.error('[NUEVA TAREA] Error al guardar:', error);
+        alert('❌ Error al guardar la tarea. Revisa la consola para más detalles.');
       }
     });
   }
