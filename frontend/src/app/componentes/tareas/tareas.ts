@@ -27,6 +27,8 @@ export class Tareas implements OnChanges {
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes['idUsuario']) {
+      // Limpiamos la lista anterior inmediatamente para evitar "tareas fantasma" (RNF-07)
+      this.tareasUsuarioSeleccionado = [];
       this.cargarTareas();
     }
   }
