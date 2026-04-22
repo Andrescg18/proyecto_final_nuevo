@@ -1,0 +1,33 @@
+services:
+  # 🌐 Servicio Backend (Node.js)
+  - type: web
+    name: evidence-management-backend
+    env: node
+    plan: free
+    buildCommand: cd backend && npm install
+    startCommand: cd backend && node index.js
+    envVars:
+      - key: PORT
+        value: 10000
+      - key: JWT_SECRET
+        generateValue: true
+      - key: FRONTEND_URL
+        fromStaticSite:
+          name: evidence-management-frontend
+          property: url
+      # Conexión a Base de Datos (Aquí colocarás tu URL de MySQL)
+      - key: MYSQL_URL
+        sync: false 
+
+  # 🖥️ Servicio Frontend (Angular)
+  - type: static
+    name: evidence-management-frontend
+    env: static
+    plan: free
+    buildCommand: cd frontend && npm install && npm run build:prod
+    publishDir: frontend/dist/proyecto_inicial/browser
+    envVars:
+      - key: API_BASE_URL
+        fromService:
+          name: evidence-management-backend
+          property: url

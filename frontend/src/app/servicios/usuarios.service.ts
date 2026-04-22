@@ -13,10 +13,19 @@ export interface Usuario {
 })
 export class UsuariosService {
   private get baseUrl() {
-    const host = typeof window !== 'undefined' ? window.location.origin : '';
-    const apiBase = host.includes('localhost') 
-      ? 'http://localhost:3000' 
-      : 'https://proyectofinalnuevo-production.up.railway.app'; 
+    if (typeof window === 'undefined') return '';
+    
+    const host = window.location.hostname;
+    let apiBase = '';
+
+    if (host === 'localhost' || host === '127.0.0.1') {
+      apiBase = 'http://localhost:3000';
+    } else if (host.includes('vercel.app')) {
+      apiBase = 'https://proyectofinalnuevo-production.up.railway.app';
+    } else {
+      apiBase = 'https://evidence-management-backend.onrender.com';
+    }
+
     return `${apiBase}/api/usuarios`;
   }
 

@@ -14,12 +14,22 @@ export interface AuthResponse {
 })
 export class AuthService {
   private get baseUrl() {
-    const host = typeof window !== 'undefined' ? window.location.origin : '';
-    // Si estamos en localhost, usamos el backend local. Si no, usamos el de Railway.
-    const apiBase = host.includes('localhost') 
-      ? 'http://localhost:3000' 
-      : 'https://proyectofinalnuevo-production.up.railway.app'; 
+  private get baseUrl() {
+    if (typeof window === 'undefined') return '';
+    
+    const host = window.location.hostname;
+    let apiBase = '';
+
+    if (host === 'localhost' || host === '127.0.0.1') {
+      apiBase = 'http://localhost:3000';
+    } else if (host.includes('vercel.app')) {
+      apiBase = 'https://proyectofinalnuevo-production.up.railway.app';
+    } else {
+      apiBase = 'https://evidence-management-backend.onrender.com';
+    }
+
     return `${apiBase}/api/auth`;
+  }
   }
 
   private isAdminSignal = signal<boolean>(false);
