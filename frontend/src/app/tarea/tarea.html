@@ -8,7 +8,9 @@
     
     <!-- Sólo mostramos acciones si el usuario es Admin -->
     <div class="acciones" *ngIf="authService.isAdmin()">
-      <button class="btn-edit" (click)="alEditarTarea()">✏️ Editar</button>
+      @if (tarea.completada != 1) {
+        <button class="btn-edit" (click)="alEditarTarea()">✏️ Editar</button>
+      }
       @if (tarea.completada != 1) {
         <button class="btn-complete" (click)="alCompletarTarea()">✅ Completar</button>
       } @else {

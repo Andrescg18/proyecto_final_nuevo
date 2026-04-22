@@ -50,7 +50,7 @@ export class Tareas implements OnChanges {
 
   alCerrarTareaNueva() {
     this.estaAgregandoTareaNueva = false;
-    this.cargarTareas(); 
+    this.cargarTareas();
   }
 
   alIniciarEditarTarea(tarea: any) {
