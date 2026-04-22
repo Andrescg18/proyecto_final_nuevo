@@ -10,13 +10,11 @@
     <div class="acciones" *ngIf="authService.isAdmin()">
       @if (tarea.completada != 1) {
         <button class="btn-edit" (click)="alEditarTarea()">✏️ Editar</button>
-      }
-      @if (tarea.completada != 1) {
         <button class="btn-complete" (click)="alCompletarTarea()">✅ Completar</button>
+        <button class="btn-delete" (click)="alEliminarTarea()">🗑️ Eliminar</button>
       } @else {
         <button class="btn-reopen" (click)="alReabrirTarea()">🔄 Reabrir</button>
       }
-      <button class="btn-delete" (click)="alEliminarTarea()">🗑️ Eliminar</button>
     </div>
   </article>
 </app-tarjeta>
