@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, SimpleChanges, inject } from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges, inject, signal, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Tarea } from "../../tarea/tarea";
 import { NuevaTarea } from "../nueva-tarea/nueva-tarea";
@@ -25,6 +25,7 @@ export class Tareas implements OnChanges {
 
   tareasService = inject(TareasService);
   authService = inject(AuthService);
+  cdr = inject(ChangeDetectorRef);
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes['idUsuario']) {
@@ -34,9 +35,11 @@ export class Tareas implements OnChanges {
   }
 
   cargarTareas() {
+    console.log('[TAREAS] Cargando lista para:', this.idUsuario);
     this.tareasService.obtenerTareasPorUsuario(this.idUsuario).subscribe({
       next: (datos) => {
         this.tareasUsuarioSeleccionado.set(datos);
+        this.cdr.detectChanges(); // Forzamos el refresco de la UI (RF-07)
       },
       error: (err) => {
         console.error('Error al traer las tareas:', err);
@@ -50,8 +53,9 @@ export class Tareas implements OnChanges {
 
   alCerrarTareaNueva() {
     this.estaAgregandoTareaNueva = false;
-    // Carga inmediata, sin esperas (rapido)
+    // Forzamos la carga y el redibujado de la sección
     this.cargarTareas();
+    this.cdr.detectChanges();
   }
 
   alIniciarEditarTarea(tarea: any) {

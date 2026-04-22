@@ -445,8 +445,10 @@ app.delete('/api/usuarios/:id', authenticateToken, (req, res) => {
 // ========================
 
 app.get('/api/tareas/:idUsuario', (req, res) => {
-    const { idUsuario } = req.params;
-    db.query('SELECT * FROM tareas WHERE idUsuario = ?', [idUsuario], (err, results) => {
+    const idUsuario = req.params.idUsuario?.trim();
+    console.log('[API] Buscando tareas para usuario:', idUsuario);
+    const sql = 'SELECT * FROM tareas WHERE idUsuario = ? ORDER BY id DESC';
+    db.query(sql, [idUsuario], (err, results) => {
         if (err) return res.status(500).json(err);
         res.json(results);
     });
