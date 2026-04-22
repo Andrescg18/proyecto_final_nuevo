@@ -14,7 +14,6 @@ export interface AuthResponse {
 })
 export class AuthService {
   private get baseUrl() {
-  private get baseUrl() {
     if (typeof window === 'undefined') return '';
     
     const host = window.location.hostname;
@@ -29,7 +28,6 @@ export class AuthService {
     }
 
     return `${apiBase}/api/auth`;
-  }
   }
 
   private isAdminSignal = signal<boolean>(false);
