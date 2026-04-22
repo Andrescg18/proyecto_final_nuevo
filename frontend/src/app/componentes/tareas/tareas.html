@@ -6,7 +6,7 @@
   <app-editar-tarea [tarea]="tareaEnEdicion" (cerrar)="alCerrarEditarTarea()" />
 }
 
-<ng-container *ngIf="!estaAgregandoTareaNueva && !tareaEnEdicion">
+@if (!estaAgregandoTareaNueva && !tareaEnEdicion) {
   <section id="tareas">
     <header>
       <h2>Tareas de {{ nombre }}</h2>
@@ -26,9 +26,11 @@
         </li>
       }
       
-      <li *ngIf="tareasUsuarioSeleccionado.length === 0" class="empty-tasks">
-        <p>No hay tareas pendientes en este momento. ¡Todo al día!</p>
-      </li>
+      @if (tareasUsuarioSeleccionado.length === 0) {
+        <li class="empty-tasks">
+          <p>No hay tareas pendientes en este momento. ¡Todo al día!</p>
+        </li>
+      }
     </ul>
   </section>
-</ng-container>
+}

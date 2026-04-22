@@ -74,7 +74,13 @@ export class App implements OnInit {
   }
 
   alSeleccionarUsuario(id: string) {
-    this.idUsuarioSeleccionado.set(id);
+    if (this.idUsuarioSeleccionado() === id) {
+      // Forzar refresco si se hace click en el mismo (resuelve el "doble click")
+      this.idUsuarioSeleccionado.set(undefined);
+      setTimeout(() => this.idUsuarioSeleccionado.set(id), 0);
+    } else {
+      this.idUsuarioSeleccionado.set(id);
+    }
   }
 
   limpiarSeleccion() {

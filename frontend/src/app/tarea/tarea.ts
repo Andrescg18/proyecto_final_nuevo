@@ -34,6 +34,15 @@ export class Tarea {
     });
   }
 
+  alReabrirTarea() {
+    this.tareasService.actualizarTarea(this.tarea.id, { completada: false }).subscribe({
+      next: () => {
+        this.completar.emit(this.tarea.id);
+      },
+      error: (err) => console.error('Error al reabrir:', err)
+    });
+  }
+
   alEliminarTarea() {
     this.tareasService.eliminarTarea(this.tarea.id).subscribe({
       next: () => {
