@@ -16,7 +16,7 @@
     </header>
 
     <ul>
-      @for (tarea of tareasUsuarioSeleccionado; track tarea.id) {
+      @for (tarea of tareasUsuarioSeleccionado(); track tarea.id) {
         <li>
           <app-tarea 
             [tarea]="tarea" 
@@ -26,7 +26,7 @@
         </li>
       }
       
-      @if (tareasUsuarioSeleccionado.length === 0) {
+      @if (tareasUsuarioSeleccionado().length === 0) {
         <li class="empty-tasks">
           <p>No hay tareas pendientes en este momento. ¡Todo al día!</p>
         </li>

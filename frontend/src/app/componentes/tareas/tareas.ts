@@ -20,15 +20,15 @@ export class Tareas implements OnChanges {
   estaAgregandoTareaNueva = false;
   tareaEnEdicion: any = null;
   
-  tareasUsuarioSeleccionado: any[] = []; 
+  // Usamos una señal para reactividad máxima (RF-07)
+  tareasUsuarioSeleccionado = signal<any[]>([]); 
 
   tareasService = inject(TareasService);
   authService = inject(AuthService);
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes['idUsuario']) {
-      // Limpiamos la lista anterior inmediatamente para evitar "tareas fantasma" (RNF-07)
-      this.tareasUsuarioSeleccionado = [];
+      this.tareasUsuarioSeleccionado.set([]);
       this.cargarTareas();
     }
   }
@@ -36,7 +36,7 @@ export class Tareas implements OnChanges {
   cargarTareas() {
     this.tareasService.obtenerTareasPorUsuario(this.idUsuario).subscribe({
       next: (datos) => {
-        this.tareasUsuarioSeleccionado = datos;
+        this.tareasUsuarioSeleccionado.set(datos);
       },
       error: (err) => {
         console.error('Error al traer las tareas:', err);
@@ -50,10 +50,8 @@ export class Tareas implements OnChanges {
 
   alCerrarTareaNueva() {
     this.estaAgregandoTareaNueva = false;
-    // Agregamos un pequeo retardo para asegurar que la DB haya procesado el insert
-    setTimeout(() => {
-      this.cargarTareas();
-    }, 500);
+    // Carga inmediata, sin esperas (rapido)
+    this.cargarTareas();
   }
 
   alIniciarEditarTarea(tarea: any) {
