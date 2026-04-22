@@ -386,17 +386,24 @@ app.get('/api/usuarios', (req, res) => {
     });
 });
 
-app.post('/api/usuarios', authenticateToken, (req, res) => {
-    const { nombre, avatar } = req.body;
-    if (!nombre) return res.status(400).json({ mensaje: 'El nombre es requerido' });
-    
-    const id = 'u' + Date.now();
-    const defaultAvatar = AVATAR_CATALOG[3]; // Felix as default
+app.post('/api/usuarios', authenticateToken, async (req, res) => {
+    try {
+        const { nombre, avatar } = req.body;
+        if (!nombre) return res.status(400).json({ mensaje: 'El nombre es requerido' });
+        
+        const id = 'u' + Date.now();
+        const defaultAvatar = AVATAR_CATALOG_FALLBACK[3]; // Felix as default
 
-    db.query('INSERT INTO usuarios (id, nombre, avatar) VALUES (?, ?, ?)', [id, nombre, avatar || defaultAvatar], (err) => {
-        if (err) return res.status(500).json(err);
+        await db.promise().query(
+            'INSERT INTO usuarios (id, nombre, avatar) VALUES (?, ?, ?)', 
+            [id, nombre, avatar || defaultAvatar]
+        );
+
         res.json({ id, nombre, avatar: avatar || defaultAvatar, mensaje: 'Usuario creado exitosamente.' });
-    });
+    } catch (err) {
+        console.error('[USUARIOS] Error al crear usuario:', err);
+        res.status(500).json({ mensaje: 'Error interno al intentar crear el usuario.', detalle: err.message });
+    }
 });
 
 app.put('/api/usuarios/:id', authenticateToken, (req, res) => {
