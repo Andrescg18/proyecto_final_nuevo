@@ -36,7 +36,7 @@ export class NuevaTarea {
     this.tareasService.crearTarea(nuevaTarea as any).subscribe({
       next: (respuesta) => {
         console.log('[NUEVA TAREA] Respuesta del servidor:', respuesta);
-        alert('✅ ¡Tarea guardada con éxito!');
+        alert(`✅ ¡Tarea guardada con éxito para el usuario: ${this.idUsuario}!`);
         this.cerrar.emit();
       },
       error: (error) => {

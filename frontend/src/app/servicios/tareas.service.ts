@@ -28,7 +28,8 @@ export class TareasService {
   constructor(private http: HttpClient) {}
 
   obtenerTareasPorUsuario(idUsuario: string): Observable<Tarea[]> {
-    return this.http.get<Tarea[]>(`${this.baseUrl}/${idUsuario}`);
+    // Añadimos un timestamp para evitar que el navegador use una versión cacheada
+    return this.http.get<Tarea[]>(`${this.baseUrl}/${idUsuario}?t=${Date.now()}`);
   }
 
   crearTarea(tarea: Tarea): Observable<any> {
