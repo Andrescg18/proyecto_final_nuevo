@@ -15,14 +15,27 @@ services:
         fromStaticSite:
           name: evidence-management-frontend
           property: url
-      # Conexión a Base de Datos (Aquí colocarás tu URL de MySQL)
+      # Conexión a TiDB Cloud
+      - key: DB_HOST
+        value: gateway01.us-east-1.prod.aws.tidbcloud.com
+      - key: DB_USER
+        value: 2vMVrSXioiJYE4q.root
+      - key: DB_PASSWORD
+        value: kkV43Tcfet5mqqqb
+      - key: DB_NAME
+        value: test
+      - key: DB_PORT
+        value: "4000"
+      - key: DB_SSL
+        value: "true"
+      - key: TIDB_CA_PATH
+        value: "./isrgrootx1.pem"
       - key: MYSQL_URL
-        sync: false 
+        sync: false
 
   # 🖥️ Servicio Frontend (Angular)
   - type: static
     name: evidence-management-frontend
-    env: static
     plan: free
     buildCommand: cd frontend && npm install && npm run build:prod
     publishDir: frontend/dist/proyecto_inicial/browser

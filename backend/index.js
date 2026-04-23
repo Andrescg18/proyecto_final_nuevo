@@ -30,53 +30,44 @@ app.get('/', (req, res) => {
 });
 
 const dbName = process.env.MYSQLDATABASE || process.env.DB_NAME || 'tareas_db';
-
-// Configuración de MySQL compatible con Local y Railway
 let db;
 
-console.log('[DB] Iniciando configuración de base de datos...');
-console.log('[DB] MYSQL_URL presente:', !!process.env.MYSQL_URL);
-console.log('[DB] MYSQLHOST:', process.env.MYSQLHOST || 'no definido');
+const dbConfig = {
+    host: process.env.MYSQLHOST || process.env.DB_HOST || 'localhost',
+    user: process.env.MYSQLUSER || process.env.DB_USER || 'root',
+    password: process.env.MYSQLPASSWORD || process.env.DB_PASSWORD || '',
+    port: parseInt(process.env.MYSQLPORT) || process.env.DB_PORT || 3306,
+    database: dbName,
+    ssl: process.env.DB_SSL === 'true' ? {
+        minVersion: 'TLSv1.2',
+        rejectUnauthorized: true
+    } : null
+};
 
-if (process.env.MYSQL_URL) {
-    // Railway provee una URL completa: mysql://user:pass@host:port/db
-    console.log('[DB] Usando MYSQL_URL para conectar...');
-    db = mysql.createConnection(process.env.MYSQL_URL);
-} else {
-    // Configuración manual (desarrollo local)
-    console.log('[DB] Usando configuración manual (localhost)...');
-    db = mysql.createConnection({
-        host: process.env.MYSQLHOST || process.env.DB_HOST || 'localhost',
-        user: process.env.MYSQLUSER || process.env.DB_USER || 'root',
-        password: process.env.MYSQLPASSWORD || process.env.DB_PASSWORD || '',
-        port: parseInt(process.env.MYSQLPORT) || 3306,
-        database: dbName,
+connectToDB();
+
+function connectToDB() {
+    console.log('[DB] Conectando a:', dbConfig.host);
+    db = mysql.createConnection(process.env.MYSQL_URL || dbConfig);
+
+    db.connect((err) => {
+        if (err) {
+            console.error('❌ Error conectando a MySQL/TiDB:', err.message);
+            console.error('❌ Código de error:', err.code);
+            // Si falla por SSL, intentamos sin validación estricta como fallback de último recurso
+            // pero solo si estamos en desarrollo.
+            if (err.code === 'HANDSHAKE_SSL_ERROR' && process.env.NODE_ENV !== 'production') {
+                 console.log('[DB] ⚠️ Reintentando con rejectUnauthorized: false...');
+                 dbConfig.ssl.rejectUnauthorized = false;
+                 connectToDB();
+                 return;
+            }
+            return;
+        }
+        console.log('✅ Conectado a la base de datos correctamente.');
+        initializeTables();
     });
 }
-
-const JWT_SECRET = process.env.JWT_SECRET || 'secret_key_super_segura';
-
-db.connect((err) => {
-    if (err) {
-        console.error('❌ Error conectando a MySQL:', err.message);
-        console.error('❌ Código de error:', err.code);
-        return;
-    }
-    console.log('✅ Conectado a MySQL correctamente.');
-
-    // Solo crear DB si no usamos MYSQL_URL (Railway ya provee la DB)
-    if (!process.env.MYSQL_URL) {
-        db.query(`CREATE DATABASE IF NOT EXISTS ${dbName}`, (err) => {
-            if (err) { console.error('❌ Error creando DB:', err); return; }
-            db.changeUser({ database: dbName }, (err) => {
-                if (err) { console.error('❌ Error cambiando DB:', err); return; }
-                initializeTables();
-            });
-        });
-    } else {
-        initializeTables();
-    }
-});
 
 async function initializeTables() {
     console.log('[DB] Iniciando Migraciones de Esquema...');
@@ -483,5 +474,6 @@ app.delete('/api/tareas/:id', authenticateToken, (req, res) => {
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, "0.0.0.0", () => {
-    console.log(`🚀 Servidor corriendo en http://0.0.0.0:${PORT}`);
+    console.log(`🚀 Servidor corriendo en http://localhost:${PORT}`);
+    console.log(`💡 Nota: También disponible en todas las interfaces de red (0.0.0.0)`);
 });
