@@ -7,7 +7,7 @@
     "build": "ng build",
 
     "watch": "npx ng build --watch --configuration development",
-    "build:prod": "npx ng build --configuration production",
+    "build:prod": "npx ng build --configuration production --prerender false",
     "test": "ng test",
     "serve:ssr:proyecto_inicial": "node dist/proyecto_inicial/server/server.mjs",
     "deploy": "ng build --configuration production --base-href=/PROYECTO_FINAL1/ && npx angular-cli-ghpages --dir=dist/proyecto_inicial/browser"

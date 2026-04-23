@@ -34,7 +34,7 @@ services:
   # 🖥️ Servicio Frontend (Angular - Desactivando Prerender para estabilidad)
   - type: static
     name: evidence-management-frontend
-    buildCommand: cd frontend && npm ci && node --max_old_space_size=4096 ./node_modules/@angular/cli/bin/ng build --configuration production --prerender false
+    buildCommand: cd frontend && npm install && npm run build:prod
     publishDir: frontend/dist/proyecto_inicial/browser
     envVars:
       - key: NODE_VERSION
