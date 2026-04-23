@@ -12,6 +12,7 @@ console.log('🚀 Backend iniciando - v2.0 con MySQL Railway');
 
 
 const FRONTEND_URL = process.env.FRONTEND_URL || 'http://localhost:4200';
+const JWT_SECRET = process.env.JWT_SECRET || 'tu_clave_secreta_aqui';
 
 // Configuración de CORS permisiva para facilitar el despliegue
 app.use(cors({
