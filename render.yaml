@@ -29,11 +29,13 @@ services:
       - key: MYSQL_URL
         sync: false
 
-  # 🖥️ Servicio Frontend (Angular - Sitio Estático Optimizados)
+  # 🖥️ Servicio Frontend (Angular - Optimizado para Memoria)
   - type: static
     name: evidence-management-frontend
-    buildCommand: cd frontend && npm install && npm run build:prod
+    buildCommand: cd frontend && npm ci && node --max_old_space_size=4096 ./node_modules/@angular/cli/bin/ng build --configuration production
     publishDir: frontend/dist/proyecto_inicial/browser
     envVars:
+      - key: NODE_VERSION
+        value: 20.11.0
       - key: API_BASE_URL
-        value: "https://evidence-management-backend.onrender.com" # Apuntando al nombre del servicio
+        value: https://evidence-management-backend.onrender.com
