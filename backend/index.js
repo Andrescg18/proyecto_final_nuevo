@@ -8,18 +8,17 @@ const fs = require('fs');
 const path = require('path');
 
 const app = express();
-console.log('🚀 Backend iniciando - v2.0 con MySQL Railway');
+console.log('🚀 Backend iniciando - Producción Render/TiDB');
 
 
 const FRONTEND_URL = process.env.FRONTEND_URL || 'http://localhost:4200';
 const JWT_SECRET = process.env.JWT_SECRET || 'tu_clave_secreta_aqui';
 
-// Configuración de CORS ultra-permisiva para producción
+// Configuración de CORS segura
 app.use(cors({
-    origin: true, // Refleja el origin de la petición
-    credentials: true,
-    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-    allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With']
+    origin: '*', // En producción podrías especificar dominios exactos aquí
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    allowedHeaders: ['Content-Type', 'Authorization']
 }));
 
 app.use(express.json());
@@ -210,8 +209,7 @@ function authenticateToken(req, res, next) {
 
 app.post('/api/auth/login', async (req, res) => {
     const { username, password } = req.body;
-    console.log(`[LOGIN] 🛡️ Intento: User="${username}" Pwd="${password ? '********' : 'VACÍO'}"`);
-    console.log(`[LOGIN] Headers:`, JSON.stringify(req.headers));
+    console.log(`[AUTH] Intento de login: "${username}"`);
     
     if (!username || !password) {
         return res.status(400).json({ mensaje: 'Usuario y contraseña son requeridos' });
