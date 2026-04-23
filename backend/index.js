@@ -46,30 +46,36 @@ const dbConfig = {
     } : null
 };
 
-connectToDB();
-
-function connectToDB() {
+function startServer() {
     console.log('[DB] Conectando a:', dbConfig.host);
     db = mysql.createConnection(process.env.MYSQL_URL || dbConfig);
 
-    db.connect((err) => {
+    db.connect(async (err) => {
         if (err) {
             console.error('❌ Error conectando a MySQL/TiDB:', err.message);
-            console.error('❌ Código de error:', err.code);
-            // Si falla por SSL, intentamos sin validación estricta como fallback de último recurso
-            // pero solo si estamos en desarrollo.
-            if (err.code === 'HANDSHAKE_SSL_ERROR' && process.env.NODE_ENV !== 'production') {
-                 console.log('[DB] ⚠️ Reintentando con rejectUnauthorized: false...');
-                 dbConfig.ssl.rejectUnauthorized = false;
-                 connectToDB();
-                 return;
-            }
+            // Reintento automático en 5 segundos
+            setTimeout(startServer, 5000);
             return;
         }
+
         console.log('✅ Conectado a la base de datos correctamente.');
-        initializeTables();
+        
+        try {
+            await initializeTables();
+            await autoSeedAdmin();
+            await autoSeedUsuarios();
+            
+            const PORT = process.env.PORT || 3000;
+            app.listen(PORT, "0.0.0.0", () => {
+                console.log(`🚀 Servidor listo - Admin (admin/admin123) Activo`);
+            });
+        } catch (initErr) {
+            console.error('❌ Error durante la inicialización:', initErr);
+        }
     });
 }
+
+startServer();
 
 async function initializeTables() {
     console.log('[DB] Iniciando Migraciones de Esquema...');
