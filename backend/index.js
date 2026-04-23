@@ -41,7 +41,8 @@ const dbConfig = {
     database: dbName,
     ssl: process.env.DB_SSL === 'true' ? {
         minVersion: 'TLSv1.2',
-        rejectUnauthorized: true
+        rejectUnauthorized: true,
+        ca: fs.readFileSync(path.join(__dirname, 'isrgrootx1.pem'))
     } : null
 };
 
