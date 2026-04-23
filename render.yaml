@@ -33,11 +33,13 @@ services:
       - key: MYSQL_URL
         sync: false
 
-# 🖥️ Servicio Frontend (Angular)
-staticSites:
-  - name: evidence-management-frontend
+  # 🖥️ Servicio Frontend (Angular - Servidor Estático)
+  - type: web
+    name: evidence-management-frontend
+    env: static
+    plan: free
     buildCommand: cd frontend && npm install && npm run build:prod
-    publishDir: frontend/dist/proyecto_inicial/browser
+    staticPublishDir: frontend/dist/proyecto_inicial/browser
     envVars:
       - key: API_BASE_URL
         fromService:
