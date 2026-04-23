@@ -21,8 +21,6 @@ export class AuthService {
 
     if (host === 'localhost' || host === '127.0.0.1') {
       apiBase = 'http://localhost:3000';
-    } else if (host.includes('vercel.app')) {
-      apiBase = 'https://proyectofinalnuevo-production.up.railway.app';
     } else {
       apiBase = 'https://evidence-management-backend.onrender.com';
     }
