@@ -31,7 +31,8 @@ services:
     env: node
     plan: free
     buildCommand: cd frontend && npm install && npm run build:prod
-    startCommand: npx serve -s frontend/dist/proyecto_inicial -p 8080
+    startCommand: npx serve -s frontend/dist/proyecto_inicial/browser -p 8080
+    publishDir: frontend/dist/proyecto_inicial/browser
     envVars:
       - key: PORT
         value: 8080
