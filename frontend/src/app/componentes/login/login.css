@@ -1,8 +1,7 @@
 .modal-overlay {
   position: fixed;
   top: 0; left: 0; right: 0; bottom: 0;
-  background: rgba(0, 0, 0, 0.7);
-  backdrop-filter: blur(12px);
+  background: rgba(0, 0, 0, 0.85);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -88,7 +87,7 @@ h2 {
   color: white; font-size: 1.1rem; font-weight: 700;
   cursor: pointer;
   transition: all 0.4s ease;
-  box-shadow: 0 10px 20px rgba(59, 130, 246, 0.2);
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
 }
 .submit-btn:hover:not([disabled]) { 
   transform: translateY(-2px);
