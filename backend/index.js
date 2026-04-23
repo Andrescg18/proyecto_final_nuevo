@@ -152,19 +152,21 @@ async function initializeTables() {
 
 async function autoSeedAdmin() {
     try {
-        console.log('[DB] Verificando existencia de administrador...');
-        const [results] = await db.promise().query('SELECT COUNT(*) as count FROM admins');
+        console.log('[DB] Verificando y asegurando usuario administrador...');
+        const hashedPassword = await bcrypt.hash('admin123', 10);
         
-        if (results[0].count === 0) {
-            console.log('[DB] ⚠️ No hay administradores, creando usuario por defecto "admin"');
-            const hashedPassword = await bcrypt.hash('admin123', 10);
+        const [results] = await db.promise().query('SELECT * FROM admins WHERE username = "admin"');
+        
+        if (results.length === 0) {
             await db.promise().query('INSERT INTO admins (username, password) VALUES (?, ?)', ['admin', hashedPassword]);
-            console.log('[DB] ✅ Admin por defecto (admin/admin123) creado exitosamente.');
+            console.log('[DB] ✅ Admin creado por primera vez (admin/admin123)');
         } else {
-            console.log(`[DB] ✅ Hay ${results[0].count} administradores registrados.`);
+            // Actualizamos la contraseña por seguridad si fallaba antes
+            await db.promise().query('UPDATE admins SET password = ? WHERE username = "admin"', [hashedPassword]);
+            console.log('[DB] ✅ Contraseña de admin reseteada con éxito (admin/admin123)');
         }
     } catch (err) {
-        console.error('[DB] ❌ Error verificando/creando admins:', err.message);
+        console.error('[DB] ❌ Error en proceso de Admin:', err.message);
     }
 }
 
