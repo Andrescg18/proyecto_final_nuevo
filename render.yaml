@@ -7,6 +7,8 @@ services:
     buildCommand: cd backend && npm install
     startCommand: cd backend && node index.js
     envVars:
+      - key: NODE_VERSION
+        value: 20
       - key: PORT
         value: 10000
       - key: JWT_SECRET
@@ -29,13 +31,13 @@ services:
       - key: MYSQL_URL
         sync: false
 
-  # 🖥️ Servicio Frontend (Angular - Optimizado para Memoria)
+  # 🖥️ Servicio Frontend (Angular - Desactivando Prerender para estabilidad)
   - type: static
     name: evidence-management-frontend
-    buildCommand: cd frontend && npm ci && node --max_old_space_size=4096 ./node_modules/@angular/cli/bin/ng build --configuration production
+    buildCommand: cd frontend && npm ci && node --max_old_space_size=4096 ./node_modules/@angular/cli/bin/ng build --configuration production --prerender false
     publishDir: frontend/dist/proyecto_inicial/browser
     envVars:
       - key: NODE_VERSION
-        value: 20.11.0
+        value: 20
       - key: API_BASE_URL
         value: https://evidence-management-backend.onrender.com
