@@ -13,7 +13,6 @@ services:
         value: 10000
       - key: JWT_SECRET
         value: "admin_super_secret_key_123"
-      # Conexión a TiDB Cloud
       - key: DB_HOST
         value: gateway01.us-east-1.prod.aws.tidbcloud.com
       - key: DB_USER
@@ -26,13 +25,9 @@ services:
         value: "4000"
       - key: DB_SSL
         value: "true"
-      - key: TIDB_CA_PATH
-        value: "./isrgrootx1.pem"
-      - key: MYSQL_URL
-        sync: false
     healthCheckPath: /
 
-  # 🖥️ Servicio Frontend (Angular - Desactivando Prerender para estabilidad)
+  # 🖥️ Servicio Frontend (Sitio Estático)
   - type: static
     name: evidence-management-frontend
     buildCommand: cd frontend && npm install && npm run build:prod
