@@ -338,8 +338,9 @@ const AVATAR_CATALOG_FALLBACK = [
     'https://img2.rtve.es/im/6467488/?w=900', // Will Smith
     'https://cdn.britannica.com/01/219501-050-42074723/Martin-Lawrence-2020.jpg', // Martin
     'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQrdpQUXS_VTskvCbjSoRLfNgRqMjYvU2j5GA&s', // Mr Stiven
-    'https://api.dicebear.com/7.x/avataaars/svg?seed=Felix',
-    'https://api.dicebear.com/7.x/avataaars/svg?seed=Aneka'
+    'https://unavatar.io/github/3lvis',
+    'https://unavatar.io/github/mdo',
+    'https://unavatar.io/github/shadcn'
 ];
 
 app.get('/api/usuarios/catalogo', (req, res) => {
