@@ -26,9 +26,8 @@ services:
 
 staticSites:
   - name: evidence-management-frontend
-    rootDir: frontend
-    buildCommand: npm install && npm run build:prod && cp -r dist/proyecto_inicial/browser/* dist/
-    publishDir: dist
+    buildCommand: cd frontend && npm install && npm run build:prod
+    publishDir: frontend/dist/proyecto_inicial/browser
     envVars:
       - key: API_BASE_URL
         value: https://evidence-management-backend.onrender.com
