@@ -1,5 +1,4 @@
 services:
-  # 🌐 BACKEND
   - type: web
     name: evidence-management-backend
     env: node
@@ -25,18 +24,13 @@ services:
         value: "true"
     healthCheckPath: /
 
-  # 🖥️ FRONTEND (Como Web Service para máxima compatibilidad)
-  - type: web
-    name: evidence-management-frontend
-    env: node
-    plan: free
+staticSites:
+  - name: evidence-management-frontend
+    env: static
     buildCommand: cd frontend && npm install && npm run build:prod
-    startCommand: npx serve -s frontend/dist/proyecto_inicial/browser -p 8080
     publishDir: frontend/dist/proyecto_inicial/browser
     envVars:
-      - key: PORT
-        value: 8080
-      - key: NODE_VERSION
-        value: 20
       - key: API_BASE_URL
         value: https://evidence-management-backend.onrender.com
+      - key: NODE_VERSION
+        value: 20
