@@ -1,5 +1,5 @@
 services:
-  # 🌐 BACKEND (Node.js)
+  # 🌐 BACKEND
   - type: web
     name: evidence-management-backend
     env: node
@@ -7,8 +7,6 @@ services:
     buildCommand: cd backend && npm install
     startCommand: cd backend && node index.js
     envVars:
-      - key: NODE_VERSION
-        value: 20
       - key: PORT
         value: 10000
       - key: JWT_SECRET
@@ -27,13 +25,16 @@ services:
         value: "true"
     healthCheckPath: /
 
-  # 🖥️ FRONTEND (Angular Static)
+  # 🖥️ FRONTEND (Como Web Service para máxima compatibilidad)
   - type: web
     name: evidence-management-frontend
-    env: static
+    env: node
+    plan: free
     buildCommand: cd frontend && npm install && npm run build:prod
-    publishDir: frontend/dist/proyecto_inicial
+    startCommand: npx serve -s frontend/dist/proyecto_inicial -p 8080
     envVars:
+      - key: PORT
+        value: 8080
       - key: NODE_VERSION
         value: 20
       - key: API_BASE_URL
