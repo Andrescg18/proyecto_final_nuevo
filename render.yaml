@@ -33,9 +33,9 @@ services:
       - key: MYSQL_URL
         sync: false
 
-  # 🖥️ Servicio Frontend (Angular)
-  - type: static
-    name: evidence-management-frontend
+# 🖥️ Servicio Frontend (Angular)
+staticSites:
+  - name: evidence-management-frontend
     buildCommand: cd frontend && npm install && npm run build:prod
     publishDir: frontend/dist/proyecto_inicial/browser
     envVars:
