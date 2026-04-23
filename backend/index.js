@@ -137,16 +137,19 @@ async function initializeTables() {
 
 async function autoSeedAdmin() {
     try {
+        console.log('[DB] Verificando existencia de administrador...');
         const [results] = await db.promise().query('SELECT COUNT(*) as count FROM admins');
         
         if (results[0].count === 0) {
-            console.log('No hay administradores, creando usuario por defecto "admin"');
+            console.log('[DB] ⚠️ No hay administradores, creando usuario por defecto "admin"');
             const hashedPassword = await bcrypt.hash('admin123', 10);
             await db.promise().query('INSERT INTO admins (username, password) VALUES (?, ?)', ['admin', hashedPassword]);
-            console.log('Admin por defecto creado exitosamente.');
+            console.log('[DB] ✅ Admin por defecto (admin/admin123) creado exitosamente.');
+        } else {
+            console.log(`[DB] ✅ Hay ${results[0].count} administradores registrados.`);
         }
     } catch (err) {
-        console.error('Error verificando/creando admins:', err);
+        console.error('[DB] ❌ Error verificando/creando admins:', err.message);
     }
 }
 
