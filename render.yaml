@@ -23,6 +23,8 @@ services:
         value: "4000"
       - key: DB_SSL
         value: "true"
+      - key: FRONTEND_URL
+        value: https://proyecto-final-nuevo-6wdn.vercel.app
     healthCheckPath: /
 
   # 🖥️ SITIO FRONTEND (Angular)
