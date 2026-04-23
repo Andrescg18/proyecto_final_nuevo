@@ -2,6 +2,7 @@ import { Injectable, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { tap } from 'rxjs/operators';
 import { Observable } from 'rxjs';
+import { environment } from '../../environments/environment';
 
 export interface AuthResponse {
   token: string;
@@ -13,20 +14,7 @@ export interface AuthResponse {
   providedIn: 'root'
 })
 export class AuthService {
-  private get baseUrl() {
-    if (typeof window === 'undefined') return '';
-    
-    const host = window.location.hostname;
-    let apiBase = '';
-
-    if (host === 'localhost' || host === '127.0.0.1') {
-      apiBase = 'http://localhost:3000';
-    } else {
-      apiBase = 'https://evidence-management-backend.onrender.com';
-    }
-
-    return `${apiBase}/api/auth`;
-  }
+  private apiUrl = `${environment.apiUrl}/api/auth`;
 
   private isAdminSignal = signal<boolean>(false);
   private userIdSignal = signal<number | null>(null);
@@ -48,7 +36,7 @@ export class AuthService {
   }
 
   login(username: string, password: string): Observable<AuthResponse> {
-    return this.http.post<AuthResponse>(`${this.baseUrl}/login`, { username, password }).pipe(
+    return this.http.post<AuthResponse>(`${this.apiUrl}/login`, { username, password }).pipe(
       tap(res => {
         if (typeof window !== 'undefined') {
           localStorage.setItem('admin_token', res.token);
@@ -61,26 +49,26 @@ export class AuthService {
   }
 
   crearAdministrador(username: string, password: string): Observable<any> {
-    return this.http.post(`${this.baseUrl}/admins`, { username, password });
+    return this.http.post(`${this.apiUrl}/admins`, { username, password });
   }
 
   editarPerfil(username?: string, password?: string): Observable<any> {
     const payload: any = {};
     if (username) payload.username = username;
     if (password) payload.password = password;
-    return this.http.put(`${this.baseUrl}/admins`, payload);
+    return this.http.put(`${this.apiUrl}/admins`, payload);
   }
 
   obtenerAdministradores(): Observable<any[]> {
-    return this.http.get<any[]>(`${this.baseUrl}/admins`);
+    return this.http.get<any[]>(`${this.apiUrl}/admins`);
   }
 
   eliminarAdministrador(id: number): Observable<any> {
-    return this.http.delete(`${this.baseUrl}/admins/${id}`);
+    return this.http.delete(`${this.apiUrl}/admins/${id}`);
   }
 
   cambiarPasswordAdmin(id: number, password: string): Observable<any> {
-    return this.http.put(`${this.baseUrl}/admins/${id}/password`, { password });
+    return this.http.put(`${this.apiUrl}/admins/${id}/password`, { password });
   }
 
   logout() {
