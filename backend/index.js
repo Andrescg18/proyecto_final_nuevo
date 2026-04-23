@@ -25,9 +25,18 @@ app.use(express.json());
 // Servir archivos estáticos desde la carpeta public (RF-05)
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Ruta de salud para Railway Healthcheck
+// Ruta de salud mejorada
 app.get('/', (req, res) => {
-    res.status(200).json({ status: 'ok', mensaje: 'Backend funcionando correctamente' });
+    res.status(200).json({ status: 'ok', mensaje: 'Backend de Gestión de Evidencias listo' });
+});
+
+app.get('/api/status', async (req, res) => {
+    try {
+        await db.promise().query('SELECT 1');
+        res.json({ db: 'conectado', server: 'ok' });
+    } catch (e) {
+        res.status(500).json({ db: 'error', detalle: e.message });
+    }
 });
 
 const dbName = process.env.MYSQLDATABASE || process.env.DB_NAME || 'tareas_db';
