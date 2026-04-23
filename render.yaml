@@ -27,9 +27,10 @@ services:
         value: "true"
     healthCheckPath: /
 
-staticSites:
   # 🖥️ FRONTEND (Angular Static)
-  - name: evidence-management-frontend
+  - type: web
+    name: evidence-management-frontend
+    env: static
     buildCommand: cd frontend && npm install && npm run build:prod
     publishDir: frontend/dist/proyecto_inicial
     envVars:
