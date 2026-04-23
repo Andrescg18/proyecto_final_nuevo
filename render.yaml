@@ -11,6 +11,7 @@ services:
         value: 10000
       - key: JWT_SECRET
         generateValue: true
+      # Las URLs las configuraremos manualmente en el dashboard tras el primer despliegue
       # Conexión a TiDB Cloud
       - key: DB_HOST
         value: gateway01.us-east-1.prod.aws.tidbcloud.com
@@ -36,8 +37,3 @@ services:
     plan: free
     buildCommand: cd frontend && npm install && npm run build:prod
     startCommand: npx serve -s frontend/dist/proyecto_inicial/browser -p 10000
-    envVars:
-      - key: API_BASE_URL
-        fromService:
-          name: evidence-management-backend
-          property: url
