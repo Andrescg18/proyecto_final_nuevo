@@ -1,5 +1,5 @@
 services:
-  # 🌐 BACKEND (Node.js)
+  # 🌐 SERVIDOR BACKEND (API)
   - type: web
     name: evidence-management-backend
     env: node
@@ -7,8 +7,6 @@ services:
     buildCommand: cd backend && npm install
     startCommand: cd backend && node index.js
     envVars:
-      - key: NODE_VERSION
-        value: 20
       - key: PORT
         value: 10000
       - key: JWT_SECRET
@@ -27,17 +25,16 @@ services:
         value: "true"
     healthCheckPath: /
 
-  # 🖥️ FRONTEND (Angular + npx serve)
-  - type: web
-    name: evidence-management-frontend
-    env: node
-    plan: free
+staticSites:
+  # 🖥️ SITIO FRONTEND (Angular)
+  - name: evidence-management-frontend
+    env: static
     buildCommand: cd frontend && npm install && npm run build:prod
-    startCommand: npx serve -s frontend/dist/proyecto_inicial/browser -p 8080
+    publishDir: frontend/dist/proyecto_inicial/browser
     envVars:
-      - key: NODE_VERSION
-        value: 20
-      - key: PORT
-        value: 8080
       - key: API_BASE_URL
         value: https://evidence-management-backend.onrender.com
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html
