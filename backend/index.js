@@ -484,8 +484,3 @@ app.delete('/api/tareas/:id', authenticateToken, (req, res) => {
     });
 });
 
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, "0.0.0.0", () => {
-    console.log(`🚀 Servidor corriendo en http://localhost:${PORT}`);
-    console.log(`💡 Nota: También disponible en todas las interfaces de red (0.0.0.0)`);
-});
