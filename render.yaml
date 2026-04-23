@@ -1,5 +1,5 @@
 services:
-  # 🌐 Servicio Backend (Node.js)
+  # 🌐 BACKEND (Node.js)
   - type: web
     name: evidence-management-backend
     env: node
@@ -27,9 +27,10 @@ services:
         value: "true"
     healthCheckPath: /
 
-  # 🖥️ Servicio Frontend (Sitio Estático)
+  # 🖥️ FRONTEND (Angular Static)
   - type: static
     name: evidence-management-frontend
+    env: static
     buildCommand: cd frontend && npm install && npm run build:prod
     publishDir: frontend/dist/proyecto_inicial
     envVars:
