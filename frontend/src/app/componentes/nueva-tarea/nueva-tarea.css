@@ -1,10 +1,11 @@
 .fondo {
-    background: rgba(2, 6, 23, 0.98);
+    background: #000000 !important;
     position: fixed;
     top: 0;
     left: 0;
-    width: 100%;
+    width: 100vw;
     height: 100vh;
+    z-index: 99999 !important;
 }
 
 /* Modal Premium */
