@@ -1,28 +1,23 @@
 .modal-overlay {
   position: fixed;
   top: 0; left: 0; right: 0; bottom: 0;
-  background: rgba(2, 6, 23, 0.98); /* Fondo casi sólido para evitar borrosidad */
+  background: #000; /* Negro total para enfoque absoluto */
   display: flex;
   justify-content: center;
   align-items: center;
   z-index: 9999;
-  animation: fadeIn 0.3s ease-out;
 }
 
-/* Eliminamos el ::before que causaba problemas de renderizado */
-
 .modal-content {
-  background: #0f172a; /* Fondo sólido */
-  background: linear-gradient(160deg, #0f172a 0%, #020617 100%);
+  background: #0f172a; /* Sólido */
   padding: 3rem;
-  border-radius: 28px;
+  border-radius: 12px;
   width: 90%;
   max-width: 440px;
-  box-shadow: 0 25px 70px -10px rgba(0, 0, 0, 0.9);
+  box-shadow: 0 40px 100px rgba(0, 0, 0, 0.9);
   position: relative;
-  animation: spatialIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
   color: #f8fafc;
-  border: 1px solid rgba(255, 255, 255, 0.1); /* Borde claro y nítido */
+  border: 2px solid rgba(255, 255, 255, 0.2); /* Borde muy claro */
 }
 
 @keyframes spatialIn {

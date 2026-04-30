@@ -1,10 +1,10 @@
 #tareas {
     padding: 2.5rem;
-    border-radius: 32px;
+    border-radius: 12px;
     max-height: 85vh;
-    background: rgba(15, 23, 42, 0.95);
-    border: 1px solid rgba(255, 255, 255, 0.03);
-    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+    background: #0f172a; /* Sólido */
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
     overflow: hidden;
     display: flex;
     flex-direction: column;

@@ -2,22 +2,11 @@ header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: rgba(10, 15, 25, 0.95); /* Fondo más sólido para compensar */
+  background: #0a0f19; /* Totalmente sólido */
   padding: 1.25rem 2.5rem;
-  border-radius: 20px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  border: 2px solid rgba(255, 255, 255, 0.1);
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
-}
-
-.logo-container {
-  display: flex;
-  flex-direction: column;
-  cursor: pointer;
-  transition: transform 0.3s ease;
-}
-
-.logo-container:hover {
-  transform: scale(1.02);
 }
 
 .logo-container h1 {
@@ -25,20 +14,10 @@ header {
   font-size: 2rem;
   font-weight: 800;
   letter-spacing: -1px;
-  background: linear-gradient(to right, #3b82f6, #00d2ff);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  filter: drop-shadow(0 0 15px rgba(0, 210, 255, 0.3));
+  color: #3b82f6; /* Color sólido */
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5); /* Sombra nítida */
 }
 
-.logo-container p {
-  margin: 0;
-  color: #64748b;
-  font-size: 0.85rem;
-  font-weight: 500;
-  text-transform: uppercase;
-  letter-spacing: 2px;
-}
 
 .btn-action {
   padding: 0.75rem 1.75rem;
