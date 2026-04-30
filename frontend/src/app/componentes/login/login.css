@@ -1,25 +1,27 @@
 .modal-overlay {
   position: fixed;
   top: 0; left: 0; right: 0; bottom: 0;
-  background: rgba(0, 0, 0, 0.85);
+  background: rgba(2, 6, 23, 0.7); /* Color más profundo y transparente */
+  backdrop-filter: blur(8px); /* Efecto de desenfoque profesional */
+  -webkit-backdrop-filter: blur(8px);
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 2000;
-  animation: fadeIn 0.4s ease;
+  z-index: 3000; /* Asegurar que esté por encima de todo */
+  animation: fadeIn 0.3s ease-out;
 }
 
 .modal-content {
-  background: linear-gradient(135deg, #0f172a, #05070a);
+  background: linear-gradient(160deg, #0f172a 0%, #020617 100%);
   padding: 3rem;
-  border-radius: 24px;
+  border-radius: 28px;
   width: 90%;
-  max-width: 420px;
-  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.6);
+  max-width: 440px;
+  box-shadow: 0 25px 70px -10px rgba(0, 0, 0, 0.8), 
+              0 0 0 1px rgba(255, 255, 255, 0.08); /* Borde sutil de luz */
   position: relative;
-  animation: spatialIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  color: var(--text-white);
-  border: 1px solid rgba(255, 255, 255, 0.05);
+  animation: spatialIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  color: #f8fafc;
 }
 
 @keyframes spatialIn {
