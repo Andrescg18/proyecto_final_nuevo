@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { environment } from '../../environments/environment';
 
 export interface Usuario {
   id: string;
@@ -12,22 +13,7 @@ export interface Usuario {
   providedIn: 'root'
 })
 export class UsuariosService {
-  private get baseUrl() {
-    if (typeof window === 'undefined') return '';
-    
-    const host = window.location.hostname;
-    let apiBase = '';
-
-    if (host === 'localhost' || host === '127.0.0.1') {
-      apiBase = 'http://localhost:3000';
-    } else if (host.includes('vercel.app')) {
-      apiBase = 'https://proyectofinalnuevo-production.up.railway.app';
-    } else {
-      apiBase = 'https://evidence-management-backend.onrender.com';
-    }
-
-    return `${apiBase}/api/usuarios`;
-  }
+  private baseUrl = `${environment.apiUrl}/api/usuarios`;
 
   constructor(private http: HttpClient) {}
 

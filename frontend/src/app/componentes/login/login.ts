@@ -30,9 +30,8 @@ export class LoginComponent {
       },
       error: (err) => {
         this.loading = false;
-        const targetUrl = 'https://evidence-management-backend.onrender.com';
-        this.error = (err.error?.mensaje || 'Error al iniciar sesión') + ' (Conectando a Render Backend)';
-        console.error('Fallo en login hacia:', targetUrl, err);
+        this.error = (err.error?.mensaje || 'Error al iniciar sesión') + ' (Revisa la conexión)';
+        console.error('Fallo en login:', err);
       }
     });
   }
