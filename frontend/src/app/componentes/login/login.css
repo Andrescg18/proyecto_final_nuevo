@@ -109,33 +109,39 @@ h2 {
 
 .submit-btn {
   flex: 2;
-  padding: 1rem;
-  border-radius: 14px;
+  padding: 1.25rem; /* Más grande */
+  border-radius: 16px;
   border: none;
-  background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
-  color: white;
+  background: #3b82f6; /* Color sólido primero para asegurar visibilidad */
+  background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+  color: #ffffff;
   font-size: 1.1rem;
   font-weight: 700;
   cursor: pointer;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4);
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2); /* Nitidez extra en el texto */
+  transition: transform 0.2s, filter 0.2s;
+  box-shadow: 0 10px 20px -5px rgba(59, 130, 246, 0.5);
+  position: relative;
+  z-index: 10; /* Asegurar que el botón esté por encima del contenido del modal */
+  display: block;
+  width: 100%;
+  -webkit-font-smoothing: antialiased;
 }
 
 .submit-btn:hover:not([disabled]) { 
   transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(59, 130, 246, 0.5);
   filter: brightness(1.1);
 }
 
 .submit-btn:active:not([disabled]) {
-  transform: translateY(0);
+  transform: translateY(1px);
 }
 
 .submit-btn[disabled] { 
-  opacity: 0.5; 
-  cursor: not-allowed; 
-  filter: grayscale(1);
+  background: #475569 !important;
+  opacity: 0.7;
+  cursor: not-allowed;
+  transform: none;
 }
 
 @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
