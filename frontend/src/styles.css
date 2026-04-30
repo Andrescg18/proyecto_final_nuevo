@@ -164,3 +164,15 @@ button {
     from { opacity: 0; }
     to { opacity: 1; }
 }
+
+/* REGLA MAESTRA ANTI-DESENFOQUE (FORZAR NITIDEZ TOTAL) */
+* {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    filter: none !important;
+}
+
+/* Restaurar solo los filtros necesarios (sombras de botones) */
+.submit-btn:hover, .btn-save:hover, .btn-action:hover {
+    filter: brightness(1.1) !important;
+}
