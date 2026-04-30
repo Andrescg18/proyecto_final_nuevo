@@ -2,12 +2,11 @@ header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: rgba(10, 15, 25, 0.7);
-  backdrop-filter: blur(15px);
+  background: rgba(10, 15, 25, 0.95); /* Fondo más sólido para compensar */
   padding: 1.25rem 2.5rem;
   border-radius: 20px;
-  border: 1px solid rgba(255, 255, 255, 0.05);
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
 }
 
 .logo-container {
