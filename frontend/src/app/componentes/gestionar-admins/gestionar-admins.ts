@@ -54,14 +54,13 @@ export class GestionarAdminsComponent implements OnInit {
     });
   }
 
-  cambiarPassword(id: number) {
-    const nuevaPassword = prompt('Ingresa la nueva contraseña para este administrador:');
-    if (!nuevaPassword) return;
+  cambiarPasswordDirecta(id: number, nuevaPassword: string) {
+    if (!nuevaPassword || nuevaPassword.trim() === '') return;
 
     this.loading = true;
     this.authService.cambiarPasswordAdmin(id, nuevaPassword).subscribe({
       next: (res) => {
-        this.success = res.mensaje || 'Contraseña actualizada.';
+        this.success = res.mensaje || '¡Contraseña actualizada al instante!';
         this.loading = false;
         setTimeout(() => this.success = '', 3000);
       },
@@ -71,6 +70,14 @@ export class GestionarAdminsComponent implements OnInit {
         setTimeout(() => this.error = '', 3000);
       }
     });
+  }
+
+  cambiarPassword(id: number) {
+    // Mantengo este método por compatibilidad si se usa en otro sitio, 
+    // pero el principal ahora es cambiarPasswordDirecta
+    const nuevaPassword = prompt('Ingresa la nueva contraseña para este administrador:');
+    if (!nuevaPassword) return;
+    this.cambiarPasswordDirecta(id, nuevaPassword);
   }
 
   onClose() {

@@ -10,29 +10,31 @@
     <div class="admin-list" style="margin-top: 1rem;">
       <table style="width: 100%; border-collapse: collapse; color: #fff;">
         <thead>
-          <tr style="border-bottom: 1px solid #3f3f46; text-align: left;">
-            <th style="padding: 0.8rem;">Usuario</th>
-            <th style="padding: 0.8rem; text-align: right;">Acciones</th>
+          <tr style="border-bottom: 2px solid #3b82f6; text-align: left;">
+            <th style="padding: 1rem;">Usuario</th>
+            <th style="padding: 1rem;">Nueva Clave (Enter para guardar)</th>
+            <th style="padding: 1rem; text-align: right;">Acción</th>
           </tr>
         </thead>
         <tbody>
           <tr *ngFor="let admin of admins" style="border-bottom: 1px solid #27272a;">
-            <td style="padding: 0.8rem;">
+            <td style="padding: 1rem;">
                 {{ admin.username }}
-                <span *ngIf="admin.id === authService.userId()" style="font-size: 0.75rem; color: #6366f1; font-weight: bold; margin-left: 5px;">(Tú)</span>
+                <span *ngIf="admin.id === authService.userId()" style="font-size: 0.75rem; color: #3b82f6; font-weight: bold; margin-left: 5px;">(Tú)</span>
             </td>
-            <td style="padding: 0.8rem; text-align: right; display: flex; gap: 0.5rem; justify-content: flex-end;">
-              <button 
-                class="btn-edit" 
-                style="background: #3b82f6; border: none; color: #fff; padding: 0.4rem 0.8rem; border-radius: 4px; cursor: pointer; font-size: 0.85rem;"
-                [disabled]="loading"
-                (click)="cambiarPassword(admin.id)"
+            <td style="padding: 0.5rem 1rem;">
+              <input 
+                #passInput
+                type="password" 
+                placeholder="Nueva clave..."
+                style="background: #000; border: 1px solid #334155; color: #fff; padding: 0.5rem; border-radius: 8px; width: 100%; outline: none;"
+                (keyup.enter)="cambiarPasswordDirecta(admin.id, passInput.value); passInput.value = ''"
               >
-                Clave
-              </button>
+            </td>
+            <td style="padding: 1rem; text-align: right;">
               <button 
                 class="btn-delete" 
-                style="background: #ef4444; border: none; color: #fff; padding: 0.4rem 0.8rem; border-radius: 4px; cursor: pointer; font-size: 0.85rem;"
+                style="background: #ef4444; border: none; color: #fff; padding: 0.5rem 1rem; border-radius: 8px; cursor: pointer; font-size: 0.85rem; font-weight: 700;"
                 [disabled]="loading || admin.id === authService.userId()"
                 [style.opacity]="admin.id === authService.userId() ? '0.3' : '1'"
                 (click)="eliminarAdmin(admin.id)"
@@ -47,10 +49,6 @@
       <p *ngIf="admins.length === 0 && !loading" style="text-align: center; color: #a1a1aa; margin-top: 1.5rem;">
         No hay otros administradores.
       </p>
-
-      <div *ngIf="loading" style="text-align: center; margin-top: 1.5rem;">
-        Cargando administradores...
-      </div>
     </div>
   </div>
 </div>
