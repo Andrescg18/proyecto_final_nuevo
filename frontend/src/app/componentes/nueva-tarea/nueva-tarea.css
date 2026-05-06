@@ -10,17 +10,20 @@
 
 /* Modal Premium */
 dialog {
+    display: block; /* Asegurar visibilidad */
+    position: fixed;
+    z-index: 100000 !important; /* Por encima del fondo negro */
     width: 90%;
     max-width: 32rem;
-    background: linear-gradient(135deg, #0f172a, #05070a);
-    border-radius: 24px;
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.6);
-    overflow: hidden;
+    background: #0f172a; /* Fondo sólido para nitidez */
+    border-radius: 16px;
+    border: 2px solid #3b82f6; /* Borde azul nítido */
     padding: 2.5rem;
-    top: 5rem;
-    color: var(--text-white);
-    animation: spatialIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); /* Centrado perfecto */
+    color: #ffffff;
+    box-shadow: 0 40px 100px rgba(0, 0, 0, 0.9);
 }
 
 @keyframes spatialIn {
@@ -51,21 +54,21 @@ input,
 textarea {
     width: 100%;
     font-family: inherit;
-    padding: 0.8rem 1rem;
+    padding: 1rem;
     border-radius: 12px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    background-color: rgba(0, 0, 0, 0.3);
-    color: #f8fafc;
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    background-color: #000; /* Fondo negro sólido */
+    color: #fff;
+    font-size: 1rem;
     outline: none;
-    transition: all 0.3s ease;
+    transition: all 0.2s ease;
     margin-bottom: 1.5rem;
 }
 
 input:focus,
 textarea:focus {
     border-color: #3b82f6;
-    background-color: rgba(59, 130, 246, 0.05);
-    box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.15);
+    box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.3);
 }
 
 .acciones {
@@ -77,32 +80,33 @@ textarea:focus {
 
 button {
     font-family: inherit;
-    font-weight: 600;
+    font-weight: 700;
     cursor: pointer;
     border: none;
-    padding: 0.8rem 2rem;
+    padding: 1rem 2rem;
     border-radius: 12px;
-    transition: all 0.3s ease;
+    transition: all 0.2s ease;
 }
 
 button[type="button"] {
-    background: transparent;
+    background: #1e293b;
     color: #94a3b8;
+    border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 button[type="button"]:hover {
-    color: #f8fafc;
-    background: rgba(255, 255, 255, 0.05);
+    background: #334155;
+    color: #fff;
 }
 
 button[type="submit"] {
-    background: linear-gradient(135deg, #3b82f6, #2563eb);
+    background: #3b82f6;
     color: #ffffff;
-    box-shadow: 0 10px 20px rgba(59, 130, 246, 0.2);
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
 }
 
 button[type="submit"]:hover {
+    background: #2563eb;
     transform: translateY(-2px);
-    box-shadow: 0 15px 30px rgba(59, 130, 246, 0.4);
-    filter: brightness(1.1);
+    box-shadow: 0 8px 20px rgba(59, 130, 246, 0.6);
 }
