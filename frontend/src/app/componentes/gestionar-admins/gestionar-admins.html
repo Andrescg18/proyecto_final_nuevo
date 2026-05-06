@@ -17,7 +17,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let admin of admins" style="border-bottom: 1px solid #27272a;">
+          <tr *ngFor="let admin of admins()" style="border-bottom: 1px solid #27272a;">
             <td style="padding: 1rem;">
                 {{ admin.username }}
                 <span *ngIf="admin.id === authService.userId()" style="font-size: 0.75rem; color: #3b82f6; font-weight: bold; margin-left: 5px;">(Tú)</span>
@@ -46,7 +46,7 @@
         </tbody>
       </table>
       
-      <p *ngIf="admins.length === 0 && !loading" style="text-align: center; color: #a1a1aa; margin-top: 1.5rem;">
+      <p *ngIf="admins().length === 0 && !loading" style="text-align: center; color: #a1a1aa; margin-top: 1.5rem;">
         No hay otros administradores.
       </p>
     </div>

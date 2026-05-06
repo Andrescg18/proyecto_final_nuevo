@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output, inject, OnInit } from '@angular/core';
+import { Component, EventEmitter, Output, inject, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../../servicios/auth.service';
 
@@ -10,7 +10,7 @@ import { AuthService } from '../../servicios/auth.service';
   styleUrls: ['../login/login.css'] // Reusing styles
 })
 export class GestionarAdminsComponent implements OnInit {
-  admins: any[] = [];
+  admins = signal<any[]>([]); // Usamos una Señal para actualización instantánea
   error = '';
   success = '';
   loading = false;
@@ -27,7 +27,7 @@ export class GestionarAdminsComponent implements OnInit {
     this.loading = true;
     this.authService.obtenerAdministradores().subscribe({
       next: (res) => {
-        this.admins = res;
+        this.admins.set(res); // Actualización reactiva instantánea
         this.loading = false;
       },
       error: (err) => {
