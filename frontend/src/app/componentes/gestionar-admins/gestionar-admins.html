@@ -22,14 +22,22 @@
                 {{ admin.username }}
                 <span *ngIf="admin.id === authService.userId()" style="font-size: 0.75rem; color: #3b82f6; font-weight: bold; margin-left: 5px;">(Tú)</span>
             </td>
-            <td style="padding: 0.5rem 1rem;">
+            <td style="padding: 0.5rem 1rem; display: flex; gap: 0.5rem; align-items: center;">
               <input 
                 #passInput
                 type="password" 
                 placeholder="Nueva clave..."
                 style="background: #000; border: 1px solid #334155; color: #fff; padding: 0.5rem; border-radius: 8px; width: 100%; outline: none;"
                 (keyup.enter)="cambiarPasswordDirecta(admin.id, passInput.value); passInput.value = ''"
+                (input)="0"
               >
+              <button 
+                *ngIf="passInput.value"
+                style="background: #3b82f6; color: white; border: none; padding: 0.5rem 0.75rem; border-radius: 8px; cursor: pointer; font-size: 0.75rem; font-weight: bold; white-space: nowrap; animation: fadeIn 0.3s ease;"
+                (click)="cambiarPasswordDirecta(admin.id, passInput.value); passInput.value = ''"
+              >
+                Actualizar
+              </button>
             </td>
             <td style="padding: 1rem; text-align: right;">
               <button 
